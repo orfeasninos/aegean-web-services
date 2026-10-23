@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- Stylised browser mockup: apartment with Acropolis view -->
+  <defs>
+    <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e3a8a"/><stop offset=".6" stop-color="#7c3aed"/><stop offset="1" stop-color="#f472b6"/></linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="#e2e8f0"/>
+  <rect x="40" y="40" width="720" height="460" rx="14" fill="#fff"/>
+  <rect x="40" y="40" width="720" height="36" rx="14" fill="#f1f5f9"/>
+  <circle cx="66" cy="58" r="6" fill="#f87171"/><circle cx="86" cy="58" r="6" fill="#fbbf24"/><circle cx="106" cy="58" r="6" fill="#34d399"/>
+  <rect x="200" y="48" width="400" height="20" rx="10" fill="#fff"/>
+  <clipPath id="vp"><rect x="40" y="76" width="720" height="424"/></clipPath>
+  <g clip-path="url(#vp)">
+    <rect x="40" y="76" width="720" height="300" fill="url(#dusk)"/>
+    <path d="M40 330 Q260 250 420 280 T760 300 V376 H40Z" fill="#3b1f4a"/>
+    <!-- Parthenon silhouette -->
+    <g fill="#fde68a">
+      <path d="M470 236 L560 212 L650 236Z"/>
+      <rect x="470" y="236" width="180" height="8"/>
+      <rect x="478" y="244" width="8" height="40"/><rect x="498" y="244" width="8" height="40"/><rect x="518" y="244" width="8" height="40"/><rect x="538" y="244" width="8" height="40"/><rect x="558" y="244" width="8" height="40"/><rect x="578" y="244" width="8" height="40"/><rect x="598" y="244" width="8" height="40"/><rect x="618" y="244" width="8" height="40"/><rect x="636" y="244" width="8" height="40"/>
+      <rect x="464" y="284" width="192" height="8"/>
+    </g>
+    <rect x="40" y="376" width="720" height="124" fill="#f8fafc"/>
+    <rect x="70" y="400" width="200" height="76" rx="10" fill="#e2e8f0"/><rect x="300" y="400" width="200" height="76" rx="10" fill="#e2e8f0"/><rect x="530" y="400" width="200" height="76" rx="10" fill="#e2e8f0"/>
+    <rect x="70" y="96" width="120" height="14" rx="7" fill="#fff" opacity=".9"/>
+    <text x="80" y="190" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#fff">Acropolis View</text>
+    <rect x="82" y="210" width="240" height="12" rx="6" fill="#fff" opacity=".75"/>
+    <rect x="82" y="244" width="140" height="36" rx="18" fill="#fde68a"/>
+  </g>
+</svg>

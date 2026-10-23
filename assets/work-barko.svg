@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- Stylised browser mockup: seaside taverna -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbd38d"/><stop offset="1" stop-color="#f6ad55"/></linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b6cb0"/><stop offset="1" stop-color="#1a365d"/></linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="#e2e8f0"/>
+  <rect x="40" y="40" width="720" height="460" rx="14" fill="#fff"/>
+  <rect x="40" y="40" width="720" height="36" rx="14" fill="#f1f5f9"/>
+  <circle cx="66" cy="58" r="6" fill="#f87171"/><circle cx="86" cy="58" r="6" fill="#fbbf24"/><circle cx="106" cy="58" r="6" fill="#34d399"/>
+  <rect x="200" y="48" width="400" height="20" rx="10" fill="#fff"/>
+  <clipPath id="vp"><rect x="40" y="76" width="720" height="424"/></clipPath>
+  <g clip-path="url(#vp)">
+    <rect x="40" y="76" width="720" height="260" fill="url(#sky)"/>
+    <circle cx="600" cy="200" r="46" fill="#fff7e6" opacity=".9"/>
+    <path d="M40 260 L200 210 L320 240 L460 190 L620 235 L760 205 L760 336 L40 336Z" fill="#c05621" opacity=".55"/>
+    <rect x="40" y="290" width="720" height="210" fill="url(#sea)"/>
+    <path d="M120 330q30-10 60 0t60 0M420 360q30-10 60 0t60 0M240 400q30-10 60 0t60 0" stroke="#90cdf4" stroke-width="3" fill="none" opacity=".6"/>
+    <rect x="70" y="96" width="90" height="14" rx="7" fill="#fff" opacity=".9"/>
+    <rect x="560" y="96" width="50" height="10" rx="5" fill="#fff" opacity=".7"/><rect x="620" y="96" width="50" height="10" rx="5" fill="#fff" opacity=".7"/><rect x="680" y="96" width="50" height="10" rx="5" fill="#fff" opacity=".7"/>
+    <text x="100" y="196" font-family="Georgia, serif" font-size="54" font-weight="700" fill="#fff">Barko</text>
+    <rect x="102" y="214" width="220" height="12" rx="6" fill="#fff" opacity=".8"/>
+    <rect x="102" y="250" width="130" height="36" rx="18" fill="#1a365d"/>
+  </g>
+</svg>
