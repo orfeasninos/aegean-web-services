@@ -4,7 +4,7 @@
    1. Design tokens      6. Hero
    2. Reset & base       7. Services
    3. Layout utilities   8. Work
-   4. Buttons & links    9. How I work
+   4. Buttons & links    9. Advantages
    5. Header & nav      10. Contact form
                         11. Footer
                         12. Reveal animations & reduced motion
@@ -476,23 +476,31 @@ body.nav-locked {
    6. Hero
    -------------------------------------------------------------------------- */
 .hero {
-  padding-block: clamp(3.5rem, 2rem + 7vw, 8rem) var(--space-section);
+  padding-block: clamp(3rem, 2rem + 5vw, 6rem) var(--space-section);
+}
+
+.hero-inner {
+  display: grid;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+@media (min-width: 60em) {
+  .hero-inner {
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--space-8);
+  }
 }
 
 .hero-title {
-  max-width: 15ch;
+  max-width: 12ch;
   font-size: var(--fs-hero);
   letter-spacing: -0.01em;
 }
 
-.hero-bottom {
-  display: grid;
-  gap: var(--space-6);
-  margin-top: clamp(2rem, 1rem + 4vw, 4rem);
-}
-
 .hero-lead {
-  max-width: 36rem;
+  max-width: 34rem;
+  margin-top: var(--space-6);
   font-size: var(--fs-lg);
   color: var(--c-text-muted);
 }
@@ -502,23 +510,156 @@ body.nav-locked {
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-6);
+  margin-top: var(--space-8);
 }
 
-@media (min-width: 60em) {
-  .hero-bottom {
-    grid-template-columns: 1fr 2fr;
-    gap: var(--space-12);
-    align-items: end;
-  }
+.hero-recent {
+  margin-top: var(--space-8);
+  padding-top: var(--space-4);
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+  border-top: 1px solid var(--c-border);
+}
 
-  .hero-lead {
-    grid-column: 2;
-    grid-row: 1;
-  }
+/* Phone mockup: a small, always-light example site */
+.hero-visual {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 18rem);
+}
 
-  .hero-actions {
-    grid-column: 1;
-    grid-row: 1;
+.phone {
+  padding: 0.625rem;
+  background: #1b2333;
+  border-radius: 2.25rem;
+  box-shadow: 0 30px 60px -30px rgb(10 16 28 / 0.55);
+}
+
+.phone-screen {
+  overflow: hidden;
+  padding-bottom: 1.25rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: #1e2633;
+  background: #fffdf8;
+  border-radius: 1.75rem;
+}
+
+.demo-cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  height: 9.5rem;
+  padding: 1rem;
+  color: #fff;
+  background:
+    linear-gradient(to top, rgb(0 0 0 / 0.45), transparent 70%),
+    radial-gradient(circle at 24% 46%, #fde9b8 0 1.1rem, transparent 1.15rem),
+    linear-gradient(#e9b98a, #8fb3d9 50%, #2f5e93 50% 100%);
+}
+
+.demo-name {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.demo-open {
+  font-size: 0.6875rem;
+  opacity: 0.9;
+}
+
+.demo-open::first-letter {
+  color: #4ade80;
+}
+
+.demo-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.375rem;
+  padding: 0.875rem 1rem 0;
+}
+
+.demo-actions span {
+  padding: 0.4375rem 0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid #d9d4c8;
+  border-radius: 0.5rem;
+}
+
+.demo-actions .is-primary {
+  color: #fff;
+  background: #1f4e8c;
+  border-color: #1f4e8c;
+}
+
+.demo-heading {
+  padding: 1rem 1rem 0.25rem;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.demo-menu {
+  padding-inline: 1rem;
+}
+
+.demo-menu li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-block: 0.5rem;
+  border-bottom: 1px dashed #e1dccf;
+}
+
+.demo-menu li span:last-child {
+  font-variant-numeric: tabular-nums;
+  color: #5a6273;
+}
+
+/* Lighthouse-style score badge overlapping the phone */
+.score-badge {
+  position: absolute;
+  top: 1.5rem;
+  right: -3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem 0.75rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--c-text);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 16px 32px -20px rgb(10 16 28 / 0.5);
+}
+
+.score-ring {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #0c7c3e;
+  background: #e6f6ec;
+  border: 3px solid #0cce6b;
+  border-radius: 50%;
+}
+
+.score-label {
+  font-weight: 600;
+}
+
+@media (max-width: 30em) {
+  .score-badge {
+    right: -0.5rem;
+    top: 1rem;
   }
 }
 
@@ -637,31 +778,38 @@ body.nav-locked {
 }
 
 /* --------------------------------------------------------------------------
-   9. How I work
+   9. Advantages (problem → solution rows)
    -------------------------------------------------------------------------- */
-.why-grid {
-  display: grid;
-  gap: var(--space-8);
-}
-
-@media (min-width: 48em) {
-  .why-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.why-list {
+  border-bottom: 1px solid var(--c-border);
 }
 
 .why-item {
-  padding-top: var(--space-4);
-  border-top: 2px solid var(--c-text);
+  display: grid;
+  gap: var(--space-3);
+  padding-block: var(--space-8);
+  border-top: 1px solid var(--c-border);
 }
 
 .why-item h3 {
-  margin-bottom: var(--space-3);
   font-size: var(--fs-xl);
 }
 
-.why-item p {
+.why-text {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 42rem;
+}
+
+.why-problem {
   color: var(--c-text-muted);
+}
+
+@media (min-width: 60em) {
+  .why-item {
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-12);
+  }
 }
 
 /* --------------------------------------------------------------------------
