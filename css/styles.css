@@ -757,6 +757,12 @@ body.nav-locked {
   }
 }
 
+@media (min-width: 64em) {
+  .work-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 .work-item h3 {
   margin-top: var(--space-6);
   font-size: var(--fs-xl);
