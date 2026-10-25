@@ -11,7 +11,7 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   1. Design tokens (light theme default; dark follows the device)
+   1. Design tokens (light theme default; dark follows the device or the toggle)
    -------------------------------------------------------------------------- */
 :root {
   color-scheme: light dark;
@@ -28,6 +28,7 @@
   --c-accent-contrast: #ffffff;
   --c-error: #b42318;
   --c-success: #1e7a45;
+  --c-score: #0a8f4c;
 
   /* Typography: system fonts only, zero network requests */
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
@@ -57,8 +58,9 @@
   --header-h: 4rem;
 }
 
+/* Dark: follows the device unless the theme toggle picked one (data-theme) */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --c-bg: #0e1726;
     --c-bg-tint: #131e31;
     --c-surface: #16223a;
@@ -70,7 +72,28 @@
     --c-accent-contrast: #0e1726;
     --c-error: #f19a90;
     --c-success: #7fd1a1;
+    --c-score: #3ee08f;
   }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --c-bg: #0e1726;
+  --c-bg-tint: #131e31;
+  --c-surface: #16223a;
+  --c-text: #e9e6df;
+  --c-text-muted: #a2aab8;
+  --c-border: #27354e;
+  --c-accent: #8db3e6;
+  --c-accent-hover: #adc8ef;
+  --c-accent-contrast: #0e1726;
+  --c-error: #f19a90;
+  --c-success: #7fd1a1;
+  --c-score: #3ee08f;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
 }
 
 /* --------------------------------------------------------------------------
@@ -297,6 +320,7 @@ ol {
 
 .logo {
   display: inline-flex;
+  margin-right: auto;
   align-items: center;
   gap: var(--space-2);
   font-weight: 650;
@@ -313,6 +337,53 @@ ol {
   width: 1.625rem;
   height: 1.625rem;
   color: var(--c-accent);
+}
+
+/* Light/dark theme toggle */
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  color: var(--c-text);
+  background: none;
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: color 0.2s var(--ease);
+}
+
+.theme-toggle:hover {
+  color: var(--c-accent);
+}
+
+.theme-toggle svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Show the icon of the theme you would switch to */
+.theme-icon-sun {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-icon-sun {
+    display: block;
+  }
+
+  :root:not([data-theme="light"]) .theme-icon-moon {
+    display: none;
+  }
+}
+
+:root[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .theme-icon-moon {
+  display: none;
 }
 
 /* Hamburger toggle (mobile only) */
@@ -470,6 +541,12 @@ body.nav-locked {
   .nav-list a[aria-current="true"] {
     text-decoration: underline;
     text-underline-offset: 0.4em;
+  }
+
+  .theme-toggle {
+    order: 1;
+    margin-left: var(--space-4);
+    margin-right: -0.5rem;
   }
 }
 
@@ -681,7 +758,7 @@ body.nav-locked {
   font-size: 1rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  color: #0a8f4c;
+  color: var(--c-score);
 }
 
 .score-label {
@@ -696,12 +773,6 @@ body.nav-locked {
 .score-label span {
   font-size: 0.75rem;
   color: var(--c-text-muted);
-}
-
-@media (prefers-color-scheme: dark) {
-  .score-value {
-    color: #3ee08f;
-  }
 }
 
 @media (max-width: 30em) {

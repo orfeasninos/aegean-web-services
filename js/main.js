@@ -6,6 +6,7 @@
    4. Reveal-on-scroll animations
    5. Contact form validation
    6. Footer year
+   7. Light/dark theme toggle
    ========================================================================== */
 
 (() => {
@@ -247,4 +248,34 @@
      6. Footer year
      ------------------------------------------------------------------------ */
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ------------------------------------------------------------------------
+     7. Light/dark theme toggle (saved choice overrides the device setting)
+     ------------------------------------------------------------------------ */
+  const root = document.documentElement;
+  const themeToggle = document.querySelector('.theme-toggle');
+  const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  const themeColors = { light: '#f5f3ee', dark: '#0e1726' };
+  const themeMetas = document.querySelectorAll('meta[name="theme-color"]');
+
+  const currentTheme = () => root.dataset.theme || (darkQuery.matches ? 'dark' : 'light');
+
+  function syncTheme() {
+    const theme = currentTheme();
+    themeToggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+    // Browser UI colour follows the chosen theme, not just the device
+    if (root.dataset.theme) themeMetas.forEach((meta) => meta.setAttribute('content', themeColors[theme]));
+  }
+
+  themeToggle.addEventListener('click', () => {
+    const next = currentTheme() === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {}
+    syncTheme();
+  });
+
+  darkQuery.addEventListener('change', syncTheme);
+  syncTheme();
 })();
