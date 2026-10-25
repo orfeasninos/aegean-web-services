@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
-  <!-- Stylised browser mockup: seaside taverna -->
+  <!-- Stylised browser mockup: Barko Taverna (dark green + gold) -->
   <defs>
-    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbd38d"/><stop offset="1" stop-color="#f6ad55"/></linearGradient>
-    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b6cb0"/><stop offset="1" stop-color="#1a365d"/></linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".55" r=".7"><stop offset="0" stop-color="#1f4a22"/><stop offset=".6" stop-color="#14331a"/><stop offset="1" stop-color="#0b1f10"/></radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0cf6a"/><stop offset="1" stop-color="#d4a73a"/></linearGradient>
   </defs>
   <rect width="800" height="500" fill="#e2e8f0"/>
   <rect x="40" y="40" width="720" height="460" rx="14" fill="#fff"/>
@@ -11,15 +11,35 @@
   <rect x="200" y="48" width="400" height="20" rx="10" fill="#fff"/>
   <clipPath id="vp"><rect x="40" y="76" width="720" height="424"/></clipPath>
   <g clip-path="url(#vp)">
-    <rect x="40" y="76" width="720" height="260" fill="url(#sky)"/>
-    <circle cx="600" cy="200" r="46" fill="#fff7e6" opacity=".9"/>
-    <path d="M40 260 L200 210 L320 240 L460 190 L620 235 L760 205 L760 336 L40 336Z" fill="#c05621" opacity=".55"/>
-    <rect x="40" y="290" width="720" height="210" fill="url(#sea)"/>
-    <path d="M120 330q30-10 60 0t60 0M420 360q30-10 60 0t60 0M240 400q30-10 60 0t60 0" stroke="#90cdf4" stroke-width="3" fill="none" opacity=".6"/>
-    <rect x="70" y="96" width="90" height="14" rx="7" fill="#fff" opacity=".9"/>
-    <rect x="560" y="96" width="50" height="10" rx="5" fill="#fff" opacity=".7"/><rect x="620" y="96" width="50" height="10" rx="5" fill="#fff" opacity=".7"/><rect x="680" y="96" width="50" height="10" rx="5" fill="#fff" opacity=".7"/>
-    <text x="100" y="196" font-family="Georgia, serif" font-size="54" font-weight="700" fill="#fff">Barko</text>
-    <rect x="102" y="214" width="220" height="12" rx="6" fill="#fff" opacity=".8"/>
-    <rect x="102" y="250" width="130" height="36" rx="18" fill="#1a365d"/>
+    <rect x="40" y="76" width="720" height="424" fill="url(#glow)"/>
+    <!-- top nav -->
+    <rect x="40" y="76" width="720" height="44" fill="#0f2814" opacity=".6"/>
+    <path d="M40 120 H760" stroke="#d4a73a" stroke-opacity=".35"/>
+    <!-- boat logo -->
+    <path d="M62 102 Q84 112 108 100 L104 96 H66Z" fill="#c0392b"/>
+    <rect x="70" y="91" width="28" height="5" rx="1" fill="#f5efe0"/>
+    <path d="M58 108q8-4 16 0t16 0t16 0" stroke="#4a90c2" stroke-width="2" fill="none"/>
+    <text x="78" y="88" font-family="Georgia, serif" font-size="10" font-style="italic" font-weight="700" fill="#4a90c2">Barko</text>
+    <g font-family="Georgia, serif" font-size="8" letter-spacing="1" fill="#e8e0c8">
+      <rect x="406" y="89" width="40" height="18" rx="9" fill="#d4a73a" opacity=".22" stroke="#d4a73a" stroke-opacity=".6"/>
+      <text x="413" y="101" fill="#f0cf6a">HOME</text>
+      <text x="460" y="101">THE RESTAURANT</text>
+      <text x="556" y="101">MENU</text>
+      <text x="594" y="101">GALLERY</text>
+      <text x="651" y="101">RESERVATIONS</text>
+    </g>
+    <circle cx="738" cy="98" r="9" fill="none" stroke="#d4a73a" stroke-opacity=".6"/>
+    <circle cx="738" cy="98" r="3" fill="#f0cf6a"/>
+    <!-- hero -->
+    <path d="M388 186 H412" stroke="#d4a73a"/>
+    <text x="400" y="206" text-anchor="middle" font-family="Georgia, serif" font-size="8" letter-spacing="3" fill="#d4a73a">ADAMAS · MILOS · SINCE 2003</text>
+    <text x="400" y="278" text-anchor="middle" font-family="Georgia, serif" font-size="72" fill="#fbf7ee">Barko</text>
+    <text x="400" y="322" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-style="italic" letter-spacing="10" fill="url(#gold)">Taverna</text>
+    <text x="400" y="352" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#e8e0c8" opacity=".85">Authentic Greek flavours in Adamas, Milos</text>
+    <rect x="340" y="372" width="120" height="30" rx="15" fill="url(#gold)"/>
+    <text x="400" y="391" text-anchor="middle" font-family="Georgia, serif" font-size="9" font-weight="700" letter-spacing="1.5" fill="#14331a">VIEW THE MENU</text>
+    <!-- floating call button -->
+    <circle cx="726" cy="466" r="14" fill="url(#gold)"/>
+    <circle cx="726" cy="466" r="5" fill="none" stroke="#14331a" stroke-width="2"/>
   </g>
 </svg>

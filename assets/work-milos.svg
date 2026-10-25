@@ -30,14 +30,6 @@
     <rect x="96" y="300" width="210" height="6" rx="3" fill="#fff" opacity=".55"/>
     <rect x="96" y="324" width="66" height="24" rx="5" fill="#fff"/>
     <rect x="170" y="324" width="66" height="24" rx="5" fill="#fff" opacity=".2" stroke="#fff" stroke-opacity=".5"/>
-    <!-- stats -->
-    <g font-family="Georgia, serif" font-size="15" font-weight="700" fill="#fff">
-      <rect x="96" y="372" width="56" height="44" rx="6" fill="#0b1f33" opacity=".5" stroke="#fff" stroke-opacity=".25"/><text x="106" y="395">70+</text>
-      <rect x="160" y="372" width="48" height="44" rx="6" fill="#0b1f33" opacity=".5" stroke="#fff" stroke-opacity=".25"/><text x="170" y="395">151</text>
-      <rect x="216" y="372" width="56" height="44" rx="6" fill="#0b1f33" opacity=".5" stroke="#fff" stroke-opacity=".25"/><text x="226" y="395">125</text>
-      <rect x="280" y="372" width="76" height="44" rx="6" fill="#0b1f33" opacity=".5" stroke="#fff" stroke-opacity=".25"/><text x="290" y="395">~5,000</text>
-    </g>
-    <g fill="#cfe3ee" opacity=".6"><rect x="106" y="404" width="34" height="4" rx="2"/><rect x="170" y="404" width="22" height="4" rx="2"/><rect x="226" y="404" width="34" height="4" rx="2"/><rect x="290" y="404" width="50" height="4" rx="2"/></g>
     <!-- wave into cream section -->
     <path d="M40 440 Q400 470 760 440 V500 H40Z" fill="#f6f1e7"/>
   </g>
