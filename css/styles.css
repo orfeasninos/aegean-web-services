@@ -771,6 +771,84 @@ body.nav-locked {
   transition: stroke-dashoffset 1.4s var(--ease) 0.4s;
 }
 
+/* Mobile hero: tighter spacing, full-width CTA, compact phone mockup */
+@media (max-width: 59.99em) {
+  .hero {
+    padding-top: var(--space-8);
+  }
+
+  .hero-inner {
+    gap: var(--space-12);
+  }
+
+  .hero-lead {
+    margin-top: var(--space-4);
+    font-size: 1.0625rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+
+  .hero-actions .btn {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-actions .link-arrow {
+    align-self: center;
+  }
+
+  .hero-visual {
+    width: min(100%, 15rem);
+  }
+
+  .phone {
+    border-radius: 2rem;
+  }
+
+  .phone-screen {
+    padding-bottom: 1rem;
+    border-radius: 1.5rem;
+  }
+
+  .demo-cover {
+    height: 7.5rem;
+  }
+
+  .demo-menu li:nth-child(n + 4) {
+    display: none;
+  }
+
+  .score-badge {
+    right: -1.75rem;
+    bottom: -1.25rem;
+    left: auto;
+    gap: 0.625rem;
+    padding: 0.5rem 0.875rem 0.5rem 0.5rem;
+  }
+
+  .score-gauge {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .score-value {
+    font-size: 0.875rem;
+  }
+
+  .score-label strong {
+    font-size: 0.8125rem;
+  }
+
+  .score-label span {
+    font-size: 0.6875rem;
+  }
+}
+
 /* Arc fills up when the hero visual is revealed */
 .js .hero-visual:not(.is-visible) .score-arc {
   stroke-dashoffset: 100;
@@ -799,13 +877,6 @@ body.nav-locked {
 .score-label span {
   font-size: 0.75rem;
   color: var(--c-text-muted);
-}
-
-@media (max-width: 30em) {
-  .score-badge {
-    left: -0.5rem;
-    bottom: -1.75rem;
-  }
 }
 
 /* --------------------------------------------------------------------------
