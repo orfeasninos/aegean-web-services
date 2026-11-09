@@ -29,6 +29,9 @@
   --c-error: #b42318;
   --c-success: #1e7a45;
   --c-score: #0a8f4c;
+  --c-logo-ink: #16244f;
+  --c-logo-sea: #1f5fa8;
+  --c-logo-sky: #1f86c4;
 
   /* Typography: system fonts only, zero network requests */
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
@@ -73,6 +76,9 @@
     --c-error: #f19a90;
     --c-success: #7fd1a1;
     --c-score: #3ee08f;
+    --c-logo-ink: #e9e6df;
+    --c-logo-sea: #4f8fd8;
+    --c-logo-sky: #5cc0ee;
   }
 }
 
@@ -90,6 +96,9 @@
   --c-error: #f19a90;
   --c-success: #7fd1a1;
   --c-score: #3ee08f;
+  --c-logo-ink: #e9e6df;
+  --c-logo-sea: #4f8fd8;
+  --c-logo-sky: #5cc0ee;
 }
 
 :root[data-theme="light"] {
@@ -334,9 +343,34 @@ ol {
 }
 
 .logo-mark {
-  width: 2.75rem;
-  height: 2rem;
-  color: var(--c-accent);
+  flex-shrink: 0;
+  width: 3.3rem;
+  height: 2.75rem;
+}
+
+.lm-ink { fill: var(--c-logo-ink); }
+.lm-sea { fill: var(--c-logo-sea); }
+.lm-sky { fill: var(--c-logo-sky); }
+.lm-code { stroke: var(--c-logo-sky); }
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.logo-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--c-logo-ink);
+  letter-spacing: -0.01em;
+}
+
+.logo-sub {
+  margin-top: 0.125rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--c-logo-sky);
 }
 
 /* Light/dark theme toggle */
@@ -589,14 +623,6 @@ body.nav-locked {
   align-items: center;
   gap: var(--space-6);
   margin-top: var(--space-8);
-}
-
-.hero-recent {
-  margin-top: var(--space-8);
-  padding-top: var(--space-4);
-  font-size: var(--fs-sm);
-  color: var(--c-text-muted);
-  border-top: 1px solid var(--c-border);
 }
 
 /* Phone mockup: a small, always-light example site */
