@@ -7,7 +7,7 @@
   <!-- ===== SEO ===== -->
   <title>Aegean Web Services | Κατασκευή Ιστοσελίδων</title>
   <meta name="description" content="Κατασκευή ιστοσελίδων για ταβέρνες, καταλύματα και μικρές επιχειρήσεις. Γρήγορες, ασφαλείς και έτοιμες για τη Google, χωρίς WordPress να συντηρείτε.">
-  <link rel="canonical" href="https://aegeanwebservices.com/">
+  <link rel="canonical" href="https://aegeanwebservices.gr/">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#f5f3ee" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0e1726" media="(prefers-color-scheme: dark)">
@@ -19,8 +19,8 @@
   <meta property="og:site_name" content="Aegean Web Services">
   <meta property="og:title" content="Aegean Web Services | Κατασκευή Ιστοσελίδων">
   <meta property="og:description" content="Ιστοσελίδες για ταβέρνες, καταλύματα και μικρές επιχειρήσεις, γρήγορες και χωρίς συντήρηση.">
-  <meta property="og:url" content="https://aegeanwebservices.com/">
-  <meta property="og:image" content="https://aegeanwebservices.com/assets/og-image.png">
+  <meta property="og:url" content="https://aegeanwebservices.gr/">
+  <meta property="og:image" content="https://aegeanwebservices.gr/assets/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- ===== Icons & styles ===== -->
@@ -31,14 +31,220 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Aegean Web Services",
-    "url": "https://aegeanwebservices.com/",
-    "email": "hello@aegeanwebservices.com",
-    "description": "Κατασκευή ιστοσελίδων για ταβέρνες, καταλύματα και μικρές επιχειρήσεις.",
-    "areaServed": "GR",
-    "knowsLanguage": ["el", "en"],
-    "serviceType": ["Κατασκευή ιστοσελίδων", "Landing pages", "Βελτιστοποίηση ταχύτητας", "Ιστοσελίδες για εστίαση και τουρισμό"]
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://aegeanwebservices.gr/#business",
+        "name": "Aegean Web Services",
+        "alternateName": "Aegean",
+        "url": "https://aegeanwebservices.gr/",
+        "email": "hello@aegeanwebservices.com",
+        "description": "Κατασκευή ιστοσελίδων για ταβέρνες, καταλύματα και μικρές επιχειρήσεις. Γρήγορες, ασφαλείς και έτοιμες για τη Google, χωρίς WordPress να συντηρείτε.",
+        "slogan": "Ιστοσελίδες που ανοίγουν αμέσως.",
+        "logo": {
+          "@type": "ImageObject",
+          "@id": "https://aegeanwebservices.gr/#logo",
+          "url": "https://aegeanwebservices.gr/assets/logo.svg",
+          "contentUrl": "https://aegeanwebservices.gr/assets/logo.svg",
+          "caption": "Aegean Web Services"
+        },
+        "image": "https://aegeanwebservices.gr/assets/og-image.png",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "GR"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "Ελλάδα",
+          "identifier": "GR"
+        },
+        "knowsLanguage": ["el", "en"],
+        "knowsAbout": [
+          "Κατασκευή ιστοσελίδων",
+          "Στατικές ιστοσελίδες",
+          "Web performance",
+          "Core Web Vitals",
+          "SEO",
+          "Structured data",
+          "Προσβασιμότητα",
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "Astro",
+          "Ιστοσελίδες για εστίαση και τουρισμό"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "email": "hello@aegeanwebservices.com",
+          "url": "https://aegeanwebservices.gr/#contact",
+          "availableLanguage": ["Greek", "English"],
+          "areaServed": "GR"
+        },
+        "serviceType": [
+          "Κατασκευή ιστοσελίδων",
+          "Landing pages",
+          "Βελτιστοποίηση ταχύτητας",
+          "Ιστοσελίδες για εστίαση και τουρισμό"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Υπηρεσίες",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "@id": "https://aegeanwebservices.gr/#service-website",
+                "name": "Νέα ιστοσελίδα",
+                "serviceType": "Κατασκευή ιστοσελίδων",
+                "description": "Γρήγορη, στατική ιστοσελίδα στα μέτρα της επιχείρησης, χωρίς ανάγκη συντήρησης.",
+                "provider": { "@id": "https://aegeanwebservices.gr/#business" },
+                "areaServed": "GR"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "@id": "https://aegeanwebservices.gr/#service-landing",
+                "name": "Landing page",
+                "serviceType": "Landing pages",
+                "description": "Σελίδα μίας ενότητας για προϊόν, καμπάνια ή υπηρεσία.",
+                "provider": { "@id": "https://aegeanwebservices.gr/#business" },
+                "areaServed": "GR"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "@id": "https://aegeanwebservices.gr/#service-performance",
+                "name": "Βελτίωση ταχύτητας",
+                "serviceType": "Βελτιστοποίηση ταχύτητας",
+                "description": "Βελτίωση ταχύτητας και Core Web Vitals υπάρχουσας ιστοσελίδας.",
+                "provider": { "@id": "https://aegeanwebservices.gr/#business" },
+                "areaServed": "GR"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "@id": "https://aegeanwebservices.gr/#service-hospitality",
+                "name": "Site για εστίαση / κατάλυμα",
+                "serviceType": "Ιστοσελίδες για εστίαση και τουρισμό",
+                "description": "Ιστοσελίδα για ταβέρνα, εστιατόριο ή κατάλυμα με μενού, ώρες, χάρτη και κρατήσεις σε ένα πάτημα, σε δύο γλώσσες.",
+                "provider": { "@id": "https://aegeanwebservices.gr/#business" },
+                "areaServed": "GR",
+                "audience": {
+                  "@type": "BusinessAudience",
+                  "audienceType": "Ταβέρνες, εστιατόρια, καταλύματα και τοπικές επιχειρήσεις"
+                }
+              }
+            }
+          ]
+        },
+        "subjectOf": { "@id": "https://aegeanwebservices.gr/#portfolio" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://aegeanwebservices.gr/#website",
+        "url": "https://aegeanwebservices.gr/",
+        "name": "Aegean Web Services",
+        "description": "Κατασκευή ιστοσελίδων για ταβέρνες, καταλύματα και μικρές επιχειρήσεις.",
+        "inLanguage": "el",
+        "publisher": { "@id": "https://aegeanwebservices.gr/#business" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://aegeanwebservices.gr/#webpage",
+        "url": "https://aegeanwebservices.gr/",
+        "name": "Aegean Web Services | Κατασκευή Ιστοσελίδων",
+        "description": "Κατασκευή ιστοσελίδων για ταβέρνες, καταλύματα και μικρές επιχειρήσεις. Γρήγορες, ασφαλείς και έτοιμες για τη Google, χωρίς WordPress να συντηρείτε.",
+        "inLanguage": "el",
+        "isPartOf": { "@id": "https://aegeanwebservices.gr/#website" },
+        "about": { "@id": "https://aegeanwebservices.gr/#business" },
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "https://aegeanwebservices.gr/assets/og-image.png"
+        },
+        "dateModified": "2026-11-14",
+        "hasPart": [
+          {
+            "@type": "WebPageElement",
+            "name": "Έργα",
+            "url": "https://aegeanwebservices.gr/#work"
+          },
+          {
+            "@type": "WebPageElement",
+            "name": "Τι κερδίζετε",
+            "url": "https://aegeanwebservices.gr/#why"
+          },
+          {
+            "@type": "WebPageElement",
+            "name": "Επικοινωνία",
+            "url": "https://aegeanwebservices.gr/#contact"
+          }
+        ],
+        "potentialAction": {
+          "@type": "CommunicateAction",
+          "name": "Επικοινωνία",
+          "target": "https://aegeanwebservices.gr/#contact"
+        }
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://aegeanwebservices.gr/#portfolio",
+        "name": "Έργα",
+        "numberOfItems": 3,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "WebSite",
+              "name": "Barko Tavern",
+              "url": "https://barkotavernmilos.com",
+              "description": "Ιστοσελίδα για ταβέρνα στη Μήλο, με μενού, gallery και κρατήσεις, σε δύο γλώσσες και με σκούρο/ανοιχτό θέμα.",
+              "image": "https://aegeanwebservices.gr/assets/work-barko.svg",
+              "inLanguage": ["el", "en"],
+              "genre": "Ταβέρνα",
+              "locationCreated": { "@type": "Place", "name": "Μήλος" },
+              "creator": { "@id": "https://aegeanwebservices.gr/#business" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "WebSite",
+              "name": "Acropolis View Apartment",
+              "url": "https://acropolisviewapartment.gr",
+              "description": "Ιστοσελίδα για διαμέρισμα βραχυχρόνιας μίσθωσης με θέα στην Ακρόπολη: χώροι, παροχές και άμεση επικοινωνία για κρατήσεις.",
+              "image": "https://aegeanwebservices.gr/assets/work-acropolis.svg",
+              "genre": "Κατάλυμα",
+              "locationCreated": { "@type": "Place", "name": "Αθήνα" },
+              "creator": { "@id": "https://aegeanwebservices.gr/#business" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "WebSite",
+              "name": "Milos.guide",
+              "url": "https://milos.guide",
+              "description": "Ανεξάρτητος ταξιδιωτικός οδηγός για τη Μήλο: διαμονή, φαγητό, παραλίες και αξιοθέατα. Χωρίς διαφημίσεις.",
+              "image": "https://aegeanwebservices.gr/assets/work-milos.svg",
+              "genre": "Ταξιδιωτικός οδηγός",
+              "about": { "@type": "Place", "name": "Μήλος" },
+              "creator": { "@id": "https://aegeanwebservices.gr/#business" }
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
 
@@ -226,6 +432,7 @@
             <ul class="tags" aria-label="Τεχνολογίες">
               <li>Astro</li>
             </ul>
+          </article>
         </div>
       </div>
     </section>
