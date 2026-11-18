@@ -3,7 +3,7 @@
    Dynamic cost estimator for the #pricing section.
 
    All prices live in PRICING below (EUR, excluding VAT). Edit them here only:
-   the hints next to each option and the total are rendered from this object.
+   the hints on each option and the total are rendered from this object.
    - type:      base price range { min, max }
    - content:   surcharge as a share of the base (0.25 = +25%)
    - languages: surcharge as a share of the base
@@ -21,7 +21,6 @@
       onepager: { min: 350, max: 500 },
       corporate: { min: 650, max: 950 },
       corporatePlus: { min: 1000, max: 1500 },
-      eshop: { min: 1500, max: 2500 },
     },
     content: {
       provided: { pct: 0 },
@@ -31,7 +30,6 @@
     languages: {
       one: { pct: 0 },
       two: { pct: 0.3 },
-      three: { pct: 0.55 },
     },
     addons: {
       seo: { min: 120, max: 180 },
@@ -49,6 +47,10 @@
   const sendLink = document.getElementById('est-send');
   const copyBtn = document.getElementById('est-copy');
   const statusEl = document.getElementById('est-status');
+  const bar = document.getElementById('est-bar');
+  const barTotal = document.getElementById('est-bar-total');
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   const eur = new Intl.NumberFormat('el-GR', {
     style: 'currency',
@@ -60,7 +62,7 @@
 
   const labelFor = (input) => input.closest('.choice').querySelector('.choice-title').textContent.trim();
 
-  /* Price hints under each option ------------------------------------------ */
+  /* Price hints on each option ---------------------------------------------- */
   form.querySelectorAll('[data-price-for]').forEach((el) => {
     const [group, key] = el.dataset.priceFor.split(':');
     const item = PRICING[group]?.[key];
@@ -91,13 +93,10 @@
       lines.push({ label: labelFor(input), min: item.min, max: item.max });
     });
 
-    const min = lines.reduce((sum, l) => sum + l.min, 0);
-    const max = lines.reduce((sum, l) => sum + l.max, 0);
-
     return {
       lines,
-      min,
-      max,
+      min: lines.reduce((sum, l) => sum + l.min, 0),
+      max: lines.reduce((sum, l) => sum + l.max, 0),
       choices: {
         type: labelFor(type),
         content: labelFor(content),
@@ -128,22 +127,57 @@
     ].join('\r\n');
   }
 
+  /* Total: counts smoothly from the previous value to the new one ----------- */
+  let shown = null;
+  let frame = 0;
+
+  function showTotal(min, max) {
+    cancelAnimationFrame(frame);
+    const paint = (a, b) => {
+      const text = range(round(a), round(b));
+      totalEl.textContent = text;
+      barTotal.textContent = text;
+    };
+
+    if (!shown || reducedMotion.matches) {
+      paint(min, max);
+      shown = { min, max };
+      return;
+    }
+
+    const from = { ...shown };
+    const start = performance.now();
+    const duration = 450;
+    shown = { min, max };
+
+    const step = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const ease = 1 - (1 - t) ** 3;
+      paint(from.min + (min - from.min) * ease, from.max + (max - from.max) * ease);
+      if (t < 1) frame = requestAnimationFrame(step);
+    };
+    frame = requestAnimationFrame(step);
+  }
+
   /* Render ------------------------------------------------------------------ */
   let current;
 
   function render() {
     current = calculate();
-    totalEl.textContent = range(current.min, current.max);
+    showTotal(current.min, current.max);
 
     breakdownEl.replaceChildren(
       ...current.lines.map((line) => {
         const li = document.createElement('li');
         const name = document.createElement('span');
+        const leader = document.createElement('span');
         const value = document.createElement('span');
         name.textContent = line.label;
-        value.textContent = range(line.min, line.max);
+        leader.className = 'est-leader';
+        leader.setAttribute('aria-hidden', 'true');
         value.className = 'est-line-value';
-        li.append(name, value);
+        value.textContent = range(line.min, line.max);
+        li.append(name, leader, value);
         return li;
       })
     );
@@ -172,6 +206,24 @@
       statusEl.textContent = `Δεν ήταν δυνατή η αντιγραφή. Στείλτε μας email στο ${PRICING.email}.`;
     }
   });
+
+  /* Mobile bar: visible while choosing, hidden once the summary is on screen - */
+  if (bar && 'IntersectionObserver' in window) {
+    const options = document.getElementById('est-options');
+    const summary = document.getElementById('est-summary');
+    const state = { options: false, summary: false };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        state[entry.target === options ? 'options' : 'summary'] = entry.isIntersecting;
+      });
+      const visible = state.options && !state.summary;
+      bar.classList.toggle('is-visible', visible);
+      bar.inert = !visible;
+    });
+    observer.observe(options);
+    observer.observe(summary);
+  }
 
   render();
 })();
