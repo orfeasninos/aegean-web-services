@@ -80,7 +80,7 @@
     if (group === 'type') el.textContent = `από ${eur.format(item.min)}`;
     else if (group === 'addons') el.textContent = `+ ${range(item.min, item.max)}`;
     else if (group === 'maintenance') el.textContent = perYear(item.year);
-    else el.textContent = item.pct ? `+${Math.round(item.pct * 100)}% στη βασική τιμή` : 'Χωρίς επιπλέον κόστος';
+    else el.textContent = item.pct ? `+${Math.round(item.pct * 100)}%` : 'Χωρίς χρέωση';
   });
 
   /* Calculation ------------------------------------------------------------- */
