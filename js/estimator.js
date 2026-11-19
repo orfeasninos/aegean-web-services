@@ -8,6 +8,7 @@
    - content:   surcharge as a share of the base (0.25 = +25%)
    - languages: surcharge as a share of the base
    - addons:    fixed range { min, max }, added on top
+   - maintenance: yearly fee, shown separately (not part of the one-off total)
    Option labels shown in the summary/quote request come from the HTML (.choice-title).
    ========================================================================== */
 
@@ -37,6 +38,11 @@
       integrations: { min: 50, max: 90 },
       speed: { min: 100, max: 180 },
     },
+    maintenance: {
+      hosting: { year: 50 },
+      basic: { year: 100 },
+      plus: { year: 200 },
+    },
   };
 
   const form = document.getElementById('estimator');
@@ -49,6 +55,8 @@
   const statusEl = document.getElementById('est-status');
   const bar = document.getElementById('est-bar');
   const barTotal = document.getElementById('est-bar-total');
+  const maintName = document.getElementById('est-maint-name');
+  const maintTotal = document.getElementById('est-maint-total');
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -60,7 +68,8 @@
   const round = (n) => Math.round(n / PRICING.roundTo) * PRICING.roundTo;
   const range = (min, max) => (min === max ? eur.format(min) : `${eur.format(min)} – ${eur.format(max)}`);
 
-  const labelFor = (input) => input.closest('.choice').querySelector('.choice-title').textContent.trim();
+  const labelFor = (input) => input.closest('label').querySelector('.choice-title').textContent.trim();
+  const perYear = (amount) => `${eur.format(amount)} / χρόνο`;
 
   /* Price hints on each option ---------------------------------------------- */
   form.querySelectorAll('[data-price-for]').forEach((el) => {
@@ -70,6 +79,7 @@
 
     if (group === 'type') el.textContent = `από ${eur.format(item.min)}`;
     else if (group === 'addons') el.textContent = `+ ${range(item.min, item.max)}`;
+    else if (group === 'maintenance') el.textContent = perYear(item.year);
     else el.textContent = item.pct ? `+${Math.round(item.pct * 100)}% στη βασική τιμή` : 'Χωρίς επιπλέον κόστος';
   });
 
@@ -79,6 +89,7 @@
     const content = form.querySelector('input[name="content"]:checked');
     const languages = form.querySelector('input[name="languages"]:checked');
     const addons = [...form.querySelectorAll('input[name="addons"]:checked')];
+    const maintenance = form.querySelector('input[name="maintenance"]:checked');
 
     const base = PRICING.type[type.value];
     const lines = [{ label: labelFor(type), min: base.min, max: base.max }];
@@ -97,11 +108,13 @@
       lines,
       min: lines.reduce((sum, l) => sum + l.min, 0),
       max: lines.reduce((sum, l) => sum + l.max, 0),
+      maintenance: PRICING.maintenance[maintenance.value].year,
       choices: {
         type: labelFor(type),
         content: labelFor(content),
         languages: labelFor(languages),
         addons: addons.map(labelFor),
+        maintenance: labelFor(maintenance),
       },
     };
   }
@@ -116,8 +129,9 @@
       `• Υλικό: ${choices.content}`,
       `• Γλώσσες: ${choices.languages}`,
       `• Επιπλέον: ${choices.addons.length ? choices.addons.join(', ') : 'Κανένα'}`,
+      `• Συντήρηση: ${choices.maintenance} (${perYear(result.maintenance)})`,
       '',
-      `Ενδεικτικό κόστος (υπολογιστής site): ${range(result.min, result.max)} + ΦΠΑ`,
+      `Ενδεικτικό κόστος κατασκευής (υπολογιστής site): ${range(result.min, result.max)} + ΦΠΑ`,
       '',
       'Όνομα:',
       'Τηλέφωνο:',
@@ -170,17 +184,17 @@
       ...current.lines.map((line) => {
         const li = document.createElement('li');
         const name = document.createElement('span');
-        const leader = document.createElement('span');
         const value = document.createElement('span');
         name.textContent = line.label;
-        leader.className = 'est-leader';
-        leader.setAttribute('aria-hidden', 'true');
         value.className = 'est-line-value';
         value.textContent = range(line.min, line.max);
-        li.append(name, leader, value);
+        li.append(name, value);
         return li;
       })
     );
+
+    maintName.textContent = current.choices.maintenance;
+    maintTotal.textContent = perYear(current.maintenance);
 
     statusEl.textContent = '';
   }
@@ -195,10 +209,11 @@
       `Υλικό: ${choices.content}`,
       `Γλώσσες: ${choices.languages}`,
       `Επιπλέον: ${choices.addons.length ? choices.addons.join(', ') : 'Κανένα'}`,
+      `Συντήρηση: ${choices.maintenance} (${perYear(current.maintenance)})`,
     ];
     const total = range(current.min, current.max);
     document.dispatchEvent(new CustomEvent('estimate:request', {
-      detail: { type: form.querySelector('input[name="type"]:checked').value, items, total, text: [...items, `Ενδεικτικό κόστος: ${total} + ΦΠΑ`].join('\n') },
+      detail: { type: form.querySelector('input[name="type"]:checked').value, items, total, text: [...items, `Ενδεικτικό κόστος κατασκευής: ${total} + ΦΠΑ`].join('\n') },
     }));
     // The link's own #contact navigation then scrolls to the form
   });
