@@ -1274,13 +1274,12 @@ body.nav-locked {
   gap: var(--space-2);
 }
 
-@media (min-width: 30em) {
+/* One full-width option per row on phones/small tablets, side by side above */
+@media (min-width: 48em) {
   .choices {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
 
-@media (min-width: 48em) {
   .choices-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1345,6 +1344,31 @@ body.nav-locked {
 
 .choice-price:empty {
   display: none;
+}
+
+/* Single column: title and price share the first line, description below */
+@media (max-width: 47.99em) {
+  .choice {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--space-3);
+  }
+
+  .choice .choice-title {
+    grid-area: 1 / 1;
+  }
+
+  .choice .choice-price {
+    grid-area: 1 / 2;
+    align-self: baseline;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  .choice .choice-desc {
+    grid-column: 1 / -1;
+  }
 }
 
 /* Add-ons: plain checkbox rows */
