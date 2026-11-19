@@ -226,7 +226,8 @@
       return li;
     }));
     quoteTotal.textContent = detail.total;
-    serviceSelect.value = 'custom-website';
+    // One-pager → landing page, every other size → new website
+    serviceSelect.value = detail.type === 'onepager' ? 'landing-page' : 'custom-website';
     validateField(serviceSelect);
     if (messageField.getAttribute('aria-invalid') === 'true') validateField(messageField);
   }

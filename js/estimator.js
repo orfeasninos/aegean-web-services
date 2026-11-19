@@ -198,7 +198,7 @@
     ];
     const total = range(current.min, current.max);
     document.dispatchEvent(new CustomEvent('estimate:request', {
-      detail: { items, total, text: [...items, `Ενδεικτικό κόστος: ${total} + ΦΠΑ`].join('\n') },
+      detail: { type: form.querySelector('input[name="type"]:checked').value, items, total, text: [...items, `Ενδεικτικό κόστος: ${total} + ΦΠΑ`].join('\n') },
     }));
     // The link's own #contact navigation then scrolls to the form
   });

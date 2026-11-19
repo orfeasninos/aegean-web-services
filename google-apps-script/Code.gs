@@ -19,9 +19,8 @@ const HEADERS = ['Timestamp', 'Name', 'Email', 'Phone', 'Service', 'Message', 'E
 
 const SERVICES = {
   'custom-website': 'Νέα ιστοσελίδα',
-  'landing-page': 'Landing page',
+  'landing-page': 'One-pager / Landing page',
   'performance': 'Βελτίωση ταχύτητας',
-  'hospitality': 'Site για εστίαση / κατάλυμα',
   'other': 'Κάτι άλλο'
 }
 
