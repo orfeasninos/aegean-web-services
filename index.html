@@ -629,9 +629,9 @@
             <ul class="est-breakdown" id="est-breakdown"></ul>
 
             <div class="est-actions">
-              <a class="btn btn-primary" id="est-send" href="mailto:contact@aegeanwebservices.gr">
+              <a class="btn btn-primary" id="est-send" href="#contact">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6 8.5 7 8.5-7"/></svg>
-                Ζητήστε προσφορά με email
+                Ζητήστε προσφορά
               </a>
               <button class="btn btn-ghost" id="est-copy" type="button">Αντιγραφή σύνοψης</button>
             </div>
@@ -670,6 +670,18 @@
             <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
           </div>
 
+          <!-- Filled in by the pricing estimator ("Ζητήστε προσφορά"), see js/main.js -->
+          <div class="quote-summary" id="quote-summary" hidden>
+            <div class="quote-summary-head">
+              <strong>Οι επιλογές σας από τον υπολογιστή κόστους</strong>
+              <button class="quote-clear" id="quote-clear" type="button">Αφαίρεση</button>
+            </div>
+            <ul class="quote-list" id="quote-list"></ul>
+            <p class="quote-total">Ενδεικτικά: <strong id="quote-total"></strong> + ΦΠΑ</p>
+            <a class="quote-edit" href="#pricing">Αλλαγή επιλογών</a>
+            <input type="hidden" id="estimate" name="estimate" value="">
+          </div>
+
           <div class="field-row">
             <div class="field">
               <label for="name">Όνομα</label>
@@ -682,6 +694,12 @@
               <input id="email" name="email" type="email" autocomplete="email" required>
               <p class="field-error" id="email-error" aria-live="polite"></p>
             </div>
+          </div>
+
+          <div class="field">
+            <label for="phone">Τηλέφωνο <span class="field-optional">(προαιρετικό)</span></label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="30">
+            <p class="field-error" id="phone-error" aria-live="polite"></p>
           </div>
 
           <div class="field">
@@ -700,7 +718,7 @@
           <!-- Budget range field: to be added later -->
 
           <div class="field">
-            <label for="message">Μήνυμα</label>
+            <label for="message">Μήνυμα <span class="field-optional" id="message-optional" hidden>(προαιρετικό)</span></label>
             <textarea id="message" name="message" rows="5" required minlength="10"></textarea>
             <p class="field-error" id="message-error" aria-live="polite"></p>
           </div>

@@ -8,7 +8,7 @@
    - content:   surcharge as a share of the base (0.25 = +25%)
    - languages: surcharge as a share of the base
    - addons:    fixed range { min, max }, added on top
-   Option labels shown in the summary/email come from the HTML (.choice-title).
+   Option labels shown in the summary/quote request come from the HTML (.choice-title).
    ========================================================================== */
 
 (() => {
@@ -182,16 +182,26 @@
       })
     );
 
-    const subject = `Αίτημα προσφοράς: ${current.choices.type}`;
-    sendLink.href =
-      `mailto:${PRICING.email}` +
-      `?subject=${encodeURIComponent(subject)}` +
-      `&body=${encodeURIComponent(summaryText(current))}`;
-
     statusEl.textContent = '';
   }
 
   form.addEventListener('change', render);
+
+  /* "Ζητήστε προσφορά": hands the choices to the contact form (js/main.js) -- */
+  sendLink.addEventListener('click', () => {
+    const { choices } = current;
+    const items = [
+      `Τύπος: ${choices.type}`,
+      `Υλικό: ${choices.content}`,
+      `Γλώσσες: ${choices.languages}`,
+      `Επιπλέον: ${choices.addons.length ? choices.addons.join(', ') : 'Κανένα'}`,
+    ];
+    const total = range(current.min, current.max);
+    document.dispatchEvent(new CustomEvent('estimate:request', {
+      detail: { items, total, text: [...items, `Ενδεικτικό κόστος: ${total} + ΦΠΑ`].join('\n') },
+    }));
+    // The link's own #contact navigation then scrolls to the form
+  });
   form.addEventListener('submit', (e) => e.preventDefault());
 
   /* Copy summary (fallback for visitors without a mail app) ------------------ */

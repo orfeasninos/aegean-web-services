@@ -15,7 +15,7 @@
 
 const sheetName = 'Sheet1'
 const ADMIN_EMAIL = 'contact@aegeanwebservices.gr'
-const HEADERS = ['Timestamp', 'Name', 'Email', 'Service', 'Message']
+const HEADERS = ['Timestamp', 'Name', 'Email', 'Phone', 'Service', 'Message', 'Estimate']
 
 const SERVICES = {
   'custom-website': 'Νέα ιστοσελίδα',
@@ -93,9 +93,21 @@ function doPost (e) {
     const email = clean(data.email, 200)
     const service = SERVICES[data.service] || clean(data.service, 100)
     const message = clean(data.message, 5000)
+    const phone = clean(data.phone, 30)
+    // Choices sent from the pricing estimator; when present the message is optional
+    const estimate = clean(data.estimate, 2000)
 
-    if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || message.length < 10) {
+    if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return reject('invalid_fields')
+    }
+    if (!estimate && message.length < 10) {
+      return reject('invalid_fields')
+    }
+    if (estimate && message && message.length < 10) {
+      return reject('invalid_fields')
+    }
+    if (phone && !/^\+?[\d\s().-]{6,30}$/.test(phone)) {
+      return reject('invalid_phone')
     }
 
     // 7. A name never contains links or HTML
@@ -109,30 +121,43 @@ function doPost (e) {
     // SAVE TO SHEET
     const doc = SpreadsheetApp.openById(scriptProp.getProperty('key'))
     const sheet = doc.getSheetByName(sheetName)
-    if (sheet.getLastRow() === 0) sheet.appendRow(HEADERS)
+    // Writes (or upgrades an older) header row
+    const headerRange = sheet.getRange(1, 1, 1, HEADERS.length)
+    if (headerRange.getValues()[0].join('|') !== HEADERS.join('|')) {
+      if (sheet.getLastRow() > 0 && sheet.getRange(1, 1).getValue() !== 'Timestamp') sheet.insertRowBefore(1)
+      headerRange.setValues([HEADERS])
+    }
     // Leading ' stops Sheets from running user input as a formula
-    sheet.appendRow([new Date(), name, email, service, message].map(v =>
+    sheet.appendRow([new Date(), name, email, phone, service, message, estimate].map(v =>
       typeof v === 'string' && /^[=+\-@]/.test(v) ? "'" + v : v))
 
     // EMAIL TO ME
     const safe = {
       name: escapeHtml(name),
       email: escapeHtml(email),
+      phone: escapeHtml(phone),
       service: escapeHtml(service),
-      message: escapeHtml(message).replace(/\n/g, '<br>')
+      message: escapeHtml(message).replace(/\n/g, '<br>'),
+      estimate: escapeHtml(estimate).replace(/\n/g, '<br>')
     }
+
+    const subject = estimate
+      ? `Αίτημα προσφοράς από ${name}`
+      : `Νέο μήνυμα από ${name} (${service})`
 
     MailApp.sendEmail({
       to: ADMIN_EMAIL,
       replyTo: email,
       name: 'Aegean Web Services – Φόρμα',
-      subject: `Νέο μήνυμα από ${name} (${service})`,
+      subject: subject,
       htmlBody: `
-        <h3>Νέο μήνυμα από τη φόρμα επικοινωνίας</h3>
+        <h3>${estimate ? 'Αίτημα προσφοράς από τον υπολογιστή κόστους' : 'Νέο μήνυμα από τη φόρμα επικοινωνίας'}</h3>
         <p><strong>Όνομα:</strong> ${safe.name}</p>
         <p><strong>Email:</strong> <a href="mailto:${safe.email}">${safe.email}</a></p>
+        ${phone ? `<p><strong>Τηλέφωνο:</strong> <a href="tel:${safe.phone.replace(/[^\d+]/g, '')}">${safe.phone}</a></p>` : ''}
         <p><strong>Υπηρεσία:</strong> ${safe.service}</p>
-        <p><strong>Μήνυμα:</strong><br>${safe.message}</p>
+        ${estimate ? `<p><strong>Επιλογές στον υπολογιστή κόστους:</strong><br>${safe.estimate}</p>` : ''}
+        <p><strong>Μήνυμα:</strong><br>${safe.message || '<em>(χωρίς μήνυμα)</em>'}</p>
       `
     })
 

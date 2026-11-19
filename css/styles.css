@@ -1119,6 +1119,67 @@ body.nav-locked {
   color: var(--c-error);
 }
 
+.field-optional {
+  font-weight: 400;
+  color: var(--c-text-muted);
+}
+
+/* Estimate carried over from the pricing section */
+.quote-summary {
+  width: 100%;
+  margin-bottom: var(--space-2);
+  padding: var(--space-4);
+  background: var(--c-bg-tint);
+  border: 1px solid var(--c-border);
+  border-left: 3px solid var(--c-accent);
+  border-radius: var(--radius);
+  font-size: var(--fs-sm);
+}
+
+.quote-summary[hidden] {
+  display: none;
+}
+
+.quote-summary-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.quote-clear {
+  padding: 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: var(--c-text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.quote-clear:hover {
+  color: var(--c-error);
+}
+
+.quote-list {
+  display: grid;
+  gap: var(--space-1);
+  margin-block: var(--space-3);
+  padding-left: 1.1em;
+}
+
+.quote-total strong {
+  color: var(--c-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.quote-edit {
+  display: inline-block;
+  margin-top: var(--space-2);
+  font-weight: 600;
+}
+
 .form-status {
   font-size: var(--fs-sm);
 }

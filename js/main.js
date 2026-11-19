@@ -169,6 +169,9 @@
       valueMissing: 'Παρακαλώ γράψτε ένα μήνυμα.',
       tooShort: 'Το μήνυμα πρέπει να έχει τουλάχιστον 10 χαρακτήρες.',
     },
+    phone: {
+      patternMismatch: 'Παρακαλώ εισάγετε ένα έγκυρο τηλέφωνο.',
+    },
   };
 
   function validateField(field) {
@@ -180,10 +183,12 @@
     const trimmed = field.value.trim();
     if (field.required && !trimmed) {
       message = messages[field.name]?.valueMissing;
-    } else if (field.minLength > 0 && trimmed.length < field.minLength) {
+    } else if (trimmed && field.minLength > 0 && trimmed.length < field.minLength) {
       message = messages[field.name]?.tooShort;
     } else if (validity.typeMismatch) {
       message = messages[field.name]?.typeMismatch;
+    } else if (field.name === 'phone' && trimmed && !/^\+?[\d\s().-]{6,30}$/.test(trimmed)) {
+      message = messages.phone.patternMismatch;
     }
 
     field.setAttribute('aria-invalid', message ? 'true' : 'false');
@@ -193,7 +198,48 @@
     return !message;
   }
 
-  const fields = [...form.querySelectorAll('input, select, textarea')].filter((field) => field.name !== 'website');
+  const fields = [...form.querySelectorAll('input, select, textarea')].filter(
+    (field) => field.name !== 'website' && field.type !== 'hidden'
+  );
+
+  /* Quote request carried over from the pricing estimator (js/estimator.js) */
+  const quoteBox = document.getElementById('quote-summary');
+  const quoteList = document.getElementById('quote-list');
+  const quoteTotal = document.getElementById('quote-total');
+  const estimateInput = document.getElementById('estimate');
+  const serviceSelect = document.getElementById('service');
+  const messageField = document.getElementById('message');
+  const messageOptional = document.getElementById('message-optional');
+  const nameField = document.getElementById('name');
+
+  // With an estimate attached the choices say enough, so the message becomes optional
+  function setQuote(detail) {
+    estimateInput.value = detail ? detail.text : '';
+    quoteBox.hidden = !detail;
+    messageField.required = !detail;
+    messageOptional.hidden = !detail;
+    if (!detail) return;
+
+    quoteList.replaceChildren(...detail.items.map((text) => {
+      const li = document.createElement('li');
+      li.textContent = text;
+      return li;
+    }));
+    quoteTotal.textContent = detail.total;
+    serviceSelect.value = 'custom-website';
+    validateField(serviceSelect);
+    if (messageField.getAttribute('aria-invalid') === 'true') validateField(messageField);
+  }
+
+  document.addEventListener('estimate:request', (e) => {
+    setQuote(e.detail);
+    nameField.focus({ preventScroll: true });
+  });
+
+  document.getElementById('quote-clear').addEventListener('click', () => {
+    setQuote(null);
+    serviceSelect.focus();
+  });
 
   // Anti-spam data checked by the Apps Script (see google-apps-script/Code.gs)
   let formOpenedAt = Date.now();
@@ -219,6 +265,7 @@
     expired: 'Η φόρμα έληξε. Ανανεώστε τη σελίδα και δοκιμάστε ξανά.',
     too_fast: 'Δοκιμάστε ξανά σε λίγα δευτερόλεπτα.',
     invalid_name: 'Το όνομα δεν πρέπει να περιέχει συνδέσμους ή σύμβολα < >.',
+    invalid_phone: 'Παρακαλώ εισάγετε ένα έγκυρο τηλέφωνο.',
   };
 
   fields.forEach((field) => {
@@ -266,6 +313,7 @@
       }
 
       form.reset();
+      setQuote(null);
       fields.forEach((field) => field.removeAttribute('aria-invalid'));
       status.classList.add('is-success');
       status.textContent = 'Ευχαριστούμε! Το μήνυμά σας εστάλη. Θα επικοινωνήσουμε σύντομα.';
