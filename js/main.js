@@ -193,7 +193,33 @@
     return !message;
   }
 
-  const fields = [...form.querySelectorAll('input, select, textarea')];
+  const fields = [...form.querySelectorAll('input, select, textarea')].filter((field) => field.name !== 'website');
+
+  // Anti-spam data checked by the Apps Script (see google-apps-script/Code.gs)
+  let formOpenedAt = Date.now();
+  form.addEventListener('focusin', () => { if (!form.dataset.touched) { form.dataset.touched = '1'; formOpenedAt = Date.now(); } });
+
+  function getUserId() {
+    try {
+      let id = localStorage.getItem('aws_uid');
+      if (!id) {
+        id = (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+        localStorage.setItem('aws_uid', id);
+      }
+      return id;
+    } catch {
+      // Storage blocked (e.g. strict privacy settings): per-page id instead of a shared 'anon' bucket
+      return `tmp-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    }
+  }
+
+  const rejectMessages = {
+    rate_limited: 'Περιμένετε λίγα δευτερόλεπτα και δοκιμάστε ξανά.',
+    quota_exceeded: 'Έχετε στείλει ήδη αρκετά μηνύματα σήμερα. Στείλτε μας email απευθείας.',
+    expired: 'Η φόρμα έληξε. Ανανεώστε τη σελίδα και δοκιμάστε ξανά.',
+    too_fast: 'Δοκιμάστε ξανά σε λίγα δευτερόλεπτα.',
+    invalid_name: 'Το όνομα δεν πρέπει να περιέχει συνδέσμους ή σύμβολα < >.',
+  };
 
   fields.forEach((field) => {
     field.addEventListener('blur', () => validateField(field));
@@ -225,20 +251,27 @@
     button.disabled = true;
 
     try {
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' },
-      });
+      const body = new FormData(form);
+      body.append('ts', String(formOpenedAt));
+      body.append('token', `aws_${Math.random().toString(36).slice(2)}`);
+      body.append('user_id', getUserId());
+
+      const response = await fetch(endpoint, { method: 'POST', body });
       if (!response.ok) throw new Error(response.statusText);
+      const result = await response.json();
+      if (result.result !== 'success') {
+        const error = new Error(result.reason || result.error || 'Send failed');
+        error.userMessage = rejectMessages[result.reason];
+        throw error;
+      }
 
       form.reset();
       fields.forEach((field) => field.removeAttribute('aria-invalid'));
       status.classList.add('is-success');
       status.textContent = 'Ευχαριστούμε! Το μήνυμά σας εστάλη. Θα επικοινωνήσουμε σύντομα.';
-    } catch {
+    } catch (error) {
       status.classList.add('is-error');
-      status.textContent = 'Κάτι πήγε στραβά. Δοκιμάστε ξανά ή στείλτε μας email.';
+      status.textContent = error.userMessage || 'Κάτι πήγε στραβά. Δοκιμάστε ξανά ή στείλτε μας email.';
     } finally {
       button.disabled = false;
     }

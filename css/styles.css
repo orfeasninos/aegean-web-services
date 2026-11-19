@@ -1649,3 +1649,12 @@ body.nav-locked {
     transform: none;
   }
 }
+
+/* Contact form honeypot (spam trap) */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

@@ -662,8 +662,14 @@
           <p>Ή στείλτε email στο<br><a href="mailto:contact@aegeanwebservices.gr">contact@aegeanwebservices.gr</a></p>
         </div>
 
-        <!-- TODO: set action to your form endpoint (e.g. Formspree / own backend) -->
-        <form class="contact-form reveal" id="contact-form" action="#" method="post" novalidate>
+        <!-- Set action to the Google Apps Script web app URL (…/exec), see google-apps-script/Code.gs -->
+        <form class="contact-form reveal" id="contact-form" action="https://script.google.com/macros/s/AKfycbyK0jJrqv46OPv2hCLaBkasCrpm7K6nMi8vZ8S98-Tsy2eVZLSs0uAk7PLOOEQWpdhR/exec" method="post" novalidate>
+          <!-- Honeypot: hidden from people, bots fill it in -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="website">Website</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
           <div class="field-row">
             <div class="field">
               <label for="name">Όνομα</label>
